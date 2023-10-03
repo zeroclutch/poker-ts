@@ -84,7 +84,7 @@ describe('Hand', () => {
             handRankings = [
                 HandRanking.FOUR_OF_A_KIND,
                 HandRanking.FULL_HOUSE,
-                HandRanking.THREE_OF_A_KIND,
+                HandRanking.FULL_HOUSE,
                 HandRanking.TWO_PAIR,
                 HandRanking.PAIR,
                 HandRanking.HIGH_CARD,
