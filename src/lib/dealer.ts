@@ -263,7 +263,7 @@ export default class Dealer {
             playerResults.sort(([, first], [, second]) => Hand.compare(first, second))
 
             let lastWinnerIndex = -1
-            let winningHand = playerResults[0][1]
+            const winningHand = playerResults[0][1]
             playerResults.forEach(([_seatIndex, hand], index) => {
                 if (Hand.compare(hand, winningHand) === 0) {
                     lastWinnerIndex = index
