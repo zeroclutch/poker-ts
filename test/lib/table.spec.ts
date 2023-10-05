@@ -1,5 +1,6 @@
 import Table, { AutomaticAction } from '../../src/lib/table'
 import { Action } from '../../src/lib/dealer'
+import { makeCards } from '../helper/card'
 
 describe('Table', () => {
     let table: Table
@@ -37,6 +38,90 @@ describe('Table', () => {
 
         // Button jumped to the next present player
         expect(table.button()).toBe(3)
+    })
+
+    test('draw when tie', () => {
+        table.sitDown(1, 1000)
+        table.sitDown(2, 1000)
+
+        // First hand
+        table.startHand()
+
+        
+        let p1 = makeCards('As Ks')
+        const replaceCard = (replacements) => (card, i) => {
+            card.rank = replacements[i].rank
+            card.suit = replacements[i].suit
+        } 
+        table.holeCards()[1]?.forEach(replaceCard(p1))
+
+        let p2 = makeCards('Ac Kc')
+        table.holeCards()[2]?.forEach(replaceCard(p2))
+
+        table.communityCards().deal(makeCards('Qd Jd Td 9h 8d'))
+
+        table.actionTaken(Action.CHECK)
+        table.actionTaken(Action.BET, 100)
+        table.actionTaken(Action.CALL)
+
+        handLoop:
+        while (table.handInProgress()) {
+            while (table.bettingRoundInProgress()) {
+              table.actionTaken(Action.CHECK);
+            }
+            
+            table.endBettingRound()
+            
+            if (table.bettingRoundsCompleted()) {
+                table.showdown()
+                break handLoop
+            }
+        }
+
+        // Second hand
+        expect(table.winners()[0]?.length).toBe(2)
+    })
+
+    test('draw when all-in tie', () => {
+        table.sitDown(1, 1000)
+        table.sitDown(2, 1000)
+
+        // First hand
+        table.startHand()
+
+        
+        let p1 = makeCards('As Ks')
+        const replaceCard = (replacements) => (card, i) => {
+            card.rank = replacements[i].rank
+            card.suit = replacements[i].suit
+        } 
+        table.holeCards()[1]?.forEach(replaceCard(p1))
+
+        let p2 = makeCards('Ac Kc')
+        table.holeCards()[2]?.forEach(replaceCard(p2))
+
+        table.communityCards().deal(makeCards('Qd Jd Td 9h 8d'))
+
+        table.actionTaken(Action.CHECK)
+        table.actionTaken(Action.BET, 1000)
+        table.actionTaken(Action.CALL)
+
+        handLoop:
+        while (table.handInProgress()) {
+            while (table.bettingRoundInProgress()) {
+              table.actionTaken(Action.CHECK);
+            }
+            
+            table.endBettingRound()
+            
+            if (table.bettingRoundsCompleted()) {
+                table.showdown()
+                break handLoop
+            }
+        }
+
+        // Second hand
+        expect(table.winners()[0]?.length).toBe(2)
     })
 
     describe('adding/removing players', () => {
@@ -644,4 +729,6 @@ describe('Table', () => {
             expect(table.bettingRoundInProgress()).toBeFalsy()
         })
     })
+
+
 })

@@ -172,7 +172,7 @@ var Hand = /** @class */ (function () {
         }
         else if (count === 3) {
             var tmp = Hand.nextRank(cards.slice(-4));
-            if (tmp.count === 2) {
+            if (tmp.count >= 2) {
                 ranking = HandRanking.FULL_HOUSE;
             }
             else {

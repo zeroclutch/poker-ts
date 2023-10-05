@@ -259,10 +259,13 @@ var Dealer = /** @class */ (function () {
                 var second = _b[1];
                 return hand_1.default.compare(first, second);
             });
-            var lastWinnerIndex = array_1.findIndexAdjacent(playerResults, function (_a, _b) {
-                var first = _a[1];
-                var second = _b[1];
-                return hand_1.default.compare(first, second) !== 0;
+            var lastWinnerIndex = -1;
+            var winningHand = playerResults[0][1];
+            playerResults.forEach(function (_a, index) {
+                var _seatIndex = _a[0], hand = _a[1];
+                if (hand_1.default.compare(hand, winningHand) === 0) {
+                    lastWinnerIndex = index;
+                }
             });
             var numberOfWinners = lastWinnerIndex === -1 ? 1 : lastWinnerIndex + 1;
             var oddChips = pot.size() % numberOfWinners;
