@@ -1,7 +1,7 @@
 {
-  "name": "poker-ts",
+  "name": "@gamebot/poker",
   "version": "1.0.0",
-  "description": "Texas Hold 'Em Poker table model with convenience features for running real games.",
+  "description": "Texas Hold 'Em Poker table model with convenience features for running real games. Based on claudijo/poker-ts.",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -16,11 +16,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/claudijo/poker-ts.git"
+    "url": "https://github.com/zeroclutch/poker-ts.git"
   },
-  "homepage": "https://github.com/claudijo/poker-ts",
+  "homepage": "https://github.com/zeroclutch/poker-ts",
   "bugs": {
-    "url": "https://github.com/claudijo/poker-ts/issues"
+    "url": "https://github.com/zeroclutch/poker-ts/issues"
   },
   "keywords": [
     "poker",
@@ -32,7 +32,7 @@
     "hold'em",
     "holdem"
   ],
-  "author": "Claudijo Borovic <claudijo.borovic@gmail.com>",
+  "author": "zeroclutch",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^26.0.23",
